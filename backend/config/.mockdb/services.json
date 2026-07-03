@@ -1,0 +1,38 @@
+[
+  {
+    "_id": "xpllo2gc0mr4p5y2g",
+    "name": "Custom Web Applications",
+    "icon": "code",
+    "description": "End-to-end full-stack web application development tailored to your business processes. We build secure, interactive, and high-performance applications.",
+    "priceRange": "$5,000 - $25,000",
+    "createdAt": "2026-07-03T08:54:25.720Z",
+    "updatedAt": "2026-07-03T08:54:25.720Z"
+  },
+  {
+    "_id": "48ajkrh80mr4p5y2g",
+    "name": "Mobile App Development",
+    "icon": "mobile",
+    "description": "Cross-platform mobile applications for iOS and Android using React Native. Seamless native experiences with robust offline support.",
+    "priceRange": "$8,000 - $35,000",
+    "createdAt": "2026-07-03T08:54:25.720Z",
+    "updatedAt": "2026-07-03T08:54:25.720Z"
+  },
+  {
+    "_id": "4cwp56zawmr4p5y2g",
+    "name": "Cloud & DevOps Solutions",
+    "icon": "server",
+    "description": "Cloud architecture design, containerization (Docker, Kubernetes), CI/CD pipeline automation, and serverless deployments on AWS and Google Cloud.",
+    "priceRange": "$3,000 - $15,000",
+    "createdAt": "2026-07-03T08:54:25.720Z",
+    "updatedAt": "2026-07-03T08:54:25.720Z"
+  },
+  {
+    "_id": "nldqhuhecmr4p5y2g",
+    "name": "UI/UX Brand Design",
+    "icon": "palette",
+    "description": "Interactive wireframing, high-fidelity prototypes, user persona research, and responsive web design aligned with modern digital trends.",
+    "priceRange": "$2,000 - $8,000",
+    "createdAt": "2026-07-03T08:54:25.720Z",
+    "updatedAt": "2026-07-03T08:54:25.720Z"
+  }
+]

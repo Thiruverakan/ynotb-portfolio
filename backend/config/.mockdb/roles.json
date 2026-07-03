@@ -1,0 +1,23 @@
+[
+  {
+    "_id": "h93nwaxmdmr4p5xx8",
+    "name": "Owner",
+    "description": "Full access to all system features including user and role management.",
+    "createdAt": "2026-07-03T08:54:25.532Z",
+    "updatedAt": "2026-07-03T08:54:25.533Z"
+  },
+  {
+    "_id": "zjwu3o93jmr4p5xx9",
+    "name": "Admin",
+    "description": "Can manage portfolio, services, team members, and client inquiries.",
+    "createdAt": "2026-07-03T08:54:25.533Z",
+    "updatedAt": "2026-07-03T08:54:25.533Z"
+  },
+  {
+    "_id": "2e7u586utmr4p5xx9",
+    "name": "Software Engineer",
+    "description": "Can view assigned dashboards and information.",
+    "createdAt": "2026-07-03T08:54:25.533Z",
+    "updatedAt": "2026-07-03T08:54:25.533Z"
+  }
+]
