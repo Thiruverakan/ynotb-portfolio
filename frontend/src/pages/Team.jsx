@@ -9,7 +9,9 @@ const Team = () => {
   useEffect(() => {
     const fetchTeam = async () => {
       try {
-        const res = await fetch('/api/team');
+        const res = await fetch('https://ynotb-portfolio-backend.onrender.com/api/team', {
+  cache: 'no-store'
+});
         const data = await res.json();
         if (data.success) {
           setTeam(data.team);
