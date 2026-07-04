@@ -1,5 +1,7 @@
 import React, { createContext, useState, useEffect, useContext } from 'react';
 
+const API_BASE_URL = 'https://ynotb-portfolio-backend.onrender.com';
+
 const AuthContext = createContext(null);
 
 export const AuthProvider = ({ children }) => {
@@ -7,7 +9,6 @@ export const AuthProvider = ({ children }) => {
   const [token, setToken] = useState(localStorage.getItem('ynotb_token') || null);
   const [loading, setLoading] = useState(true);
 
-  // Initialize and check user details from token on load
   useEffect(() => {
     const fetchUser = async () => {
       if (!token) {
@@ -17,18 +18,17 @@ export const AuthProvider = ({ children }) => {
       }
 
       try {
-        const response = await fetch('/api/auth/me', {
+        const response = await fetch(`${API_BASE_URL}/api/auth/me`, {
           headers: {
-            'Authorization': `Bearer ${token}`
+            Authorization: `Bearer ${token}`
           }
         });
-        
+
         const data = await response.json();
-        
+
         if (data.success) {
           setUser(data.user);
         } else {
-          // Token is invalid/expired
           logout();
         }
       } catch (error) {
@@ -44,7 +44,7 @@ export const AuthProvider = ({ children }) => {
 
   const login = async (username, password) => {
     try {
-      const response = await fetch('/api/auth/login', {
+      const response = await fetch(`${API_BASE_URL}/api/auth/login`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -59,9 +59,9 @@ export const AuthProvider = ({ children }) => {
         setToken(data.token);
         setUser(data.user);
         return { success: true };
-      } else {
-        return { success: false, message: data.message || 'Login failed' };
       }
+
+      return { success: false, message: data.message || 'Login failed' };
     } catch (error) {
       return { success: false, message: 'Server connection error' };
     }
