@@ -2,7 +2,7 @@
   "name": "ynotb-portfolio-frontend",
   "version": "1.0.0",
   "scripts": {
-    "build": "webpack --mode production && cp index.html dist/index.html",
+   "build": "webpack --mode production && cp index.html dist/index.html && mkdir -p dist/src/styles && cp -r src/styles/* dist/src/styles/",
     "dev": "webpack --mode development --watch"
   },
   "dependencies": {
