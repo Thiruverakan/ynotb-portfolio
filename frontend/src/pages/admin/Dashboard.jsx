@@ -20,6 +20,9 @@ import {
   MessageSquare
 } from 'lucide-react';
 
+const API_BASE_URL = 'https://ynotb-portfolio-backend.onrender.com';
+const apiUrl = (path) => `${API_BASE_URL}${path}`;
+
 const Dashboard = () => {
   const { user, token, logout, isOwner, isAdmin, isEngineer } = useAuth();
   const navigate = useNavigate();
@@ -77,10 +80,10 @@ const Dashboard = () => {
 
       // 1. Fetch public info (doesn't strictly need headers, but good to fetch)
       const [projRes, servRes, teamRes, fbRes] = await Promise.all([
-        fetch('/api/projects'),
-        fetch('/api/services'),
-        fetch('/api/team'),
-        fetch('/api/feedbacks')
+        fetch(apiUrl('/api/projects')),
+        fetch(apiUrl('/api/services')),
+        fetch(apiUrl('/api/team')),
+        fetch(apiUrl('/api/feedbacks'))
       ]);
 
       const projData = await projRes.json();
@@ -94,7 +97,7 @@ const Dashboard = () => {
       if (fbData.success) setFeedbacks(fbData.feedbacks);
 
       // 2. Fetch authenticated messages (available to all roles)
-      const msgRes = await fetch('/api/messages', { headers });
+      const msgRes = await fetch(apiUrl('/api/messages'), { headers });
       const msgData = await msgRes.json();
       if (msgData.success) {
         setMessages(msgData.messages);
@@ -102,8 +105,8 @@ const Dashboard = () => {
 
       // 3. Fetch users & roles (Owner only)
       if (isOwner) {
-        const usersRes = await fetch('/api/users', { headers });
-        const rolesRes = await fetch('/api/users/roles', { headers });
+        const usersRes = await fetch(apiUrl('/api/users'), { headers });
+        const rolesRes = await fetch(apiUrl('/api/users/roles'), { headers });
         const usersData = await usersRes.json();
         const rolesData = await rolesRes.json();
 
@@ -188,7 +191,7 @@ const Dashboard = () => {
     };
 
     const method = selectedItem ? 'PUT' : 'POST';
-    const url = selectedItem ? `/api/projects/${selectedItem._id || selectedItem.id}` : '/api/projects';
+    const url = selectedItem ? apiUrl(`/api/projects/${selectedItem._id || selectedItem.id}`) : apiUrl('/api/projects');
 
     try {
       const res = await fetch(url, {
@@ -214,7 +217,7 @@ const Dashboard = () => {
   const handleDeleteProject = async (id) => {
     if (!window.confirm('Confirm delete case study project?')) return;
     try {
-      const res = await fetch(`/api/projects/${id}`, {
+      const res = await fetch(apiUrl(`/api/projects/${id}`), {
         method: 'DELETE',
         headers: { 'Authorization': `Bearer ${token}` }
       });
@@ -250,7 +253,7 @@ const Dashboard = () => {
   const handleServiceSubmit = async (e) => {
     e.preventDefault();
     const method = selectedItem ? 'PUT' : 'POST';
-    const url = selectedItem ? `/api/services/${selectedItem._id || selectedItem.id}` : '/api/services';
+    const url = selectedItem ? apiUrl(`/api/services/${selectedItem._id || selectedItem.id}`) : apiUrl('/api/services');
 
     try {
       const res = await fetch(url, {
@@ -276,7 +279,7 @@ const Dashboard = () => {
   const handleDeleteService = async (id) => {
     if (!window.confirm('Delete service from catalog?')) return;
     try {
-      const res = await fetch(`/api/services/${id}`, {
+      const res = await fetch(apiUrl(`/api/services/${id}`), {
         method: 'DELETE',
         headers: { 'Authorization': `Bearer ${token}` }
       });
@@ -346,7 +349,7 @@ const Dashboard = () => {
     };
 
     const method = selectedItem ? 'PUT' : 'POST';
-    const url = selectedItem ? `/api/team/${selectedItem._id || selectedItem.id}` : '/api/team';
+    const url = selectedItem ? apiUrl(`/api/team/${selectedItem._id || selectedItem.id}`) : apiUrl('/api/team');
 
     try {
       const res = await fetch(url, {
@@ -372,7 +375,7 @@ const Dashboard = () => {
   const handleDeleteTeam = async (id) => {
     if (!window.confirm('Remove team member listing?')) return;
     try {
-      const res = await fetch(`/api/team/${id}`, {
+      const res = await fetch(apiUrl(`/api/team/${id}`), {
         method: 'DELETE',
         headers: { 'Authorization': `Bearer ${token}` }
       });
@@ -388,7 +391,7 @@ const Dashboard = () => {
   const handleDeleteFeedback = async (id) => {
     if (!window.confirm('Delete this client feedback review?')) return;
     try {
-      const res = await fetch(`/api/feedbacks/${id}`, {
+      const res = await fetch(apiUrl(`/api/feedbacks/${id}`), {
         method: 'DELETE',
         headers: { 'Authorization': `Bearer ${token}` }
       });
@@ -414,7 +417,7 @@ const Dashboard = () => {
     // If message is unread, automatically mark as read on backend
     if (msg.status === 'unread' && isAdmin) {
       try {
-        await fetch(`/api/messages/${msg._id || msg.id}`, {
+        await fetch(apiUrl(`/api/messages/${msg._id || msg.id}`), {
           method: 'PUT',
           headers: {
             'Content-Type': 'application/json',
@@ -431,7 +434,7 @@ const Dashboard = () => {
 
   const handleMessageStatus = async (id, status) => {
     try {
-      const res = await fetch(`/api/messages/${id}`, {
+      const res = await fetch(apiUrl(`/api/messages/${id}`), {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -454,7 +457,7 @@ const Dashboard = () => {
   const handleDeleteMessage = async (id) => {
     if (!window.confirm('Delete this inquiry message permanently?')) return;
     try {
-      const res = await fetch(`/api/messages/${id}`, {
+      const res = await fetch(apiUrl(`/api/messages/${id}`), {
         method: 'DELETE',
         headers: { 'Authorization': `Bearer ${token}` }
       });
@@ -492,7 +495,7 @@ const Dashboard = () => {
   const handleUserSubmit = async (e) => {
     e.preventDefault();
     const method = selectedItem ? 'PUT' : 'POST';
-    const url = selectedItem ? `/api/users/${selectedItem._id || selectedItem.id}` : '/api/users';
+    const url = selectedItem ? apiUrl(`/api/users/${selectedItem._id || selectedItem.id}`) : apiUrl('/api/users');
 
     // If password is blank during edit, don't submit it
     const payload = { ...userForm };
@@ -524,7 +527,7 @@ const Dashboard = () => {
   const handleDeleteUser = async (id) => {
     if (!window.confirm('Permanently remove this user account?')) return;
     try {
-      const res = await fetch(`/api/users/${id}`, {
+      const res = await fetch(apiUrl(`/api/users/${id}`), {
         method: 'DELETE',
         headers: { 'Authorization': `Bearer ${token}` }
       });
