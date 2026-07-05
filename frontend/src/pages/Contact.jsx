@@ -182,12 +182,24 @@ const Contact = () => {
                 >
                   <option value="+94">+94 (LK)</option>
                   <option value="+91">+91 (IN)</option>
+                  <option value="+1">+1 (US)</option>
                   <option value="+44">+44 (GB)</option>
-                  <option value="+1">+1 (US/CA)</option>
+                  <option value="+1">+1 (CA)</option>
                   <option value="+61">+61 (AU)</option>
                   <option value="+971">+971 (AE)</option>
                   <option value="+65">+65 (SG)</option>
                   <option value="+60">+60 (MY)</option>
+                  <option value="+49">+49 (DE)</option>
+                  <option value="+33">+33 (FR)</option>
+                  <option value="+39">+39 (IT)</option>
+                  <option value="+34">+34 (ES)</option>
+                  <option value="+81">+81 (JP)</option>
+                  <option value="+86">+86 (CN)</option>
+                  <option value="+64">+64 (NZ)</option>
+                  <option value="+966">+966 (SA)</option>
+                  <option value="+974">+974 (QA)</option>
+                  <option value="+27">+27 (ZA)</option>
+                  <option value="+41">+41 (CH)</option>
                 </select>
                 <input 
                   type="text" 
