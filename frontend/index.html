@@ -2,11 +2,15 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
+
+    <meta name="google-site-verification" content="3K6Hx2AIVTVioETSzrOieNjTm0d50i_BG64JBZ5-lxs" />
+
     <link
       rel="icon"
       type="image/svg+xml"
       href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⚡</text></svg>"
     />
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="robots" content="index, follow" />
 
@@ -16,13 +20,14 @@
       name="description"
       content="YnotB Portfolio provides software development, web applications, mobile apps, UI/UX design, and custom digital solutions."
     />
+
     <meta
       name="keywords"
       content="YnotB, YnotB Portfolio, software development, web development, mobile app development, Sri Lanka developers, portfolio website"
     />
+
     <link rel="canonical" href="https://ynotb-portfolio.onrender.com" />
 
-    <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://ynotb-portfolio.onrender.com" />
     <meta property="og:title" content="YnotB Portfolio | Software Development & Creative Agency" />
@@ -30,83 +35,44 @@
     <meta property="og:image" content="https://images.unsplash.com/photo-1557821552-17105176677c?q=80&w=1200&h=630&fit=crop" />
     <meta property="og:site_name" content="YnotB Portfolio" />
 
-    <!-- Twitter -->
-    <meta property="twitter:card" content="summary_large_image" />
-    <meta property="twitter:url" content="https://ynotb-portfolio.onrender.com" />
-    <meta property="twitter:title" content="YnotB Portfolio | Software Development & Creative Agency" />
-    <meta property="twitter:description" content="YnotB Portfolio provides software development, web applications, mobile apps, UI/UX design, and custom digital solutions." />
-    <meta property="twitter:image" content="https://images.unsplash.com/photo-1557821552-17105176677c?q=80&w=1200&h=630&fit=crop" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:url" content="https://ynotb-portfolio.onrender.com" />
+    <meta name="twitter:title" content="YnotB Portfolio | Software Development & Creative Agency" />
+    <meta name="twitter:description" content="YnotB Portfolio provides software development, web applications, mobile apps, UI/UX design, and custom digital solutions." />
+    <meta name="twitter:image" content="https://images.unsplash.com/photo-1557821552-17105176677c?q=80&w=1200&h=630&fit=crop" />
 
-    <!-- Theme Color -->
     <meta name="theme-color" content="#090d16" />
 
-    <!-- JSON-LD Structured Data -->
     <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "Organization",
-      "name": "YnotB Portfolio",
-      "url": "https://ynotb-portfolio.onrender.com",
-      "logo": "https://images.unsplash.com/photo-1557821552-17105176677c?q=80&w=120&h=120&fit=crop"
-    }
-    </script>
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "WebSite",
-      "name": "YnotB Portfolio",
-      "url": "https://ynotb-portfolio.onrender.com"
-    }
+      {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "YnotB Portfolio",
+        "url": "https://ynotb-portfolio.onrender.com",
+        "logo": "https://images.unsplash.com/photo-1557821552-17105176677c?q=80&w=120&h=120&fit=crop"
+      }
     </script>
 
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "YnotB Portfolio",
+        "url": "https://ynotb-portfolio.onrender.com"
+      }
+    </script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
     <link
       href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700;800&display=swap"
       rel="stylesheet"
-    >
+    />
 
-    <!-- CSS -->
-    <link rel="stylesheet" href="/src/styles/index.css">
+    <link rel="stylesheet" href="/src/styles/index.css" />
 
-    <!-- React Bundle -->
     <script defer src="/bundle.js"></script>
-
-    <!-- Global Client Error Reporter -->
-    <script>
-      window.onerror = function(message, source, lineno, colno, error) {
-        fetch('/api/client-logs', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({
-            message: message,
-            source: source,
-            line: lineno,
-            col: colno,
-            error: error ? error.toString() : null,
-            stack: error ? error.stack : null
-          })
-        }).catch(() => {});
-        return false;
-      };
-
-      window.onunhandledrejection = function(event) {
-        fetch('/api/client-logs', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({
-            message: 'Unhandled Promise Rejection',
-            error: event.reason ? event.reason.toString() : null,
-            stack: event.reason ? event.reason.stack : null
-          })
-        }).catch(() => {});
-      };
-    </script>
   </head>
 
   <body>
