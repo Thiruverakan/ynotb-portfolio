@@ -23,6 +23,14 @@ const MessageSchema = new mongoose.Schema({
     type: String,
     required: [true, 'Please add a message']
   },
+  phone: {
+    type: String,
+    required: [true, 'Please add a contact phone number']
+  },
+  whatsappAvailable: {
+    type: Boolean,
+    default: false
+  },
   status: {
     type: String,
     enum: ['unread', 'read', 'replied'],

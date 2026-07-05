@@ -725,6 +725,8 @@ const Dashboard = () => {
                         <thead>
                           <tr>
                             <th>Sender</th>
+                            <th>Phone</th>
+                            <th>WhatsApp</th>
                             <th>Subject</th>
                             <th>Date</th>
                             <th>Status</th>
@@ -735,6 +737,8 @@ const Dashboard = () => {
                           {messages.slice(0, 5).map((msg) => (
                             <tr key={msg._id || msg.id}>
                               <td style={{ fontWeight: 600 }}>{msg.name}</td>
+                              <td>{msg.phone || 'N/A'}</td>
+                              <td>{msg.whatsappAvailable === true ? 'Yes' : (msg.whatsappAvailable === false ? 'No' : 'N/A')}</td>
                               <td>{msg.subject}</td>
                               <td>{new Date(msg.createdAt).toLocaleDateString()}</td>
                               <td>
@@ -965,6 +969,8 @@ const Dashboard = () => {
                           <tr>
                             <th>Sender</th>
                             <th>Email</th>
+                            <th>Phone</th>
+                            <th>WhatsApp</th>
                             <th>Subject</th>
                             <th>Date Received</th>
                             <th>Status</th>
@@ -976,6 +982,8 @@ const Dashboard = () => {
                             <tr key={msg._id || msg.id}>
                               <td style={{ fontWeight: 600 }}>{msg.name}</td>
                               <td>{msg.email}</td>
+                              <td>{msg.phone || 'N/A'}</td>
+                              <td>{msg.whatsappAvailable === true ? 'Yes' : (msg.whatsappAvailable === false ? 'No' : 'N/A')}</td>
                               <td>{msg.subject}</td>
                               <td>{new Date(msg.createdAt).toLocaleString()}</td>
                               <td>
@@ -1448,6 +1456,14 @@ const Dashboard = () => {
                 <div style={{ display: 'grid', gridTemplateColumns: '80px 1fr', gap: '8px' }}>
                   <span style={{ color: 'var(--text-secondary)' }}>From:</span>
                   <span style={{ fontWeight: 600 }}>{selectedItem.name} ({selectedItem.email})</span>
+                </div>
+                <div style={{ display: 'grid', gridTemplateColumns: '80px 1fr', gap: '8px' }}>
+                  <span style={{ color: 'var(--text-secondary)' }}>Phone:</span>
+                  <span style={{ fontWeight: 600 }}>{selectedItem.phone || 'N/A'}</span>
+                </div>
+                <div style={{ display: 'grid', gridTemplateColumns: '80px 1fr', gap: '8px' }}>
+                  <span style={{ color: 'var(--text-secondary)' }}>WhatsApp:</span>
+                  <span style={{ fontWeight: 600 }}>{selectedItem.whatsappAvailable === true ? 'Yes' : (selectedItem.whatsappAvailable === false ? 'No' : 'N/A')}</span>
                 </div>
                 <div style={{ display: 'grid', gridTemplateColumns: '80px 1fr', gap: '8px' }}>
                   <span style={{ color: 'var(--text-secondary)' }}>Subject:</span>

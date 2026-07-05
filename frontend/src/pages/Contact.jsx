@@ -16,7 +16,10 @@ const Contact = () => {
     name: '',
     email: '',
     subject: '',
-    message: ''
+    message: '',
+    countryCode: '+94',
+    phoneNum: '',
+    whatsappAvailable: false
   });
 
   const [status, setStatus] = useState({
@@ -36,19 +39,49 @@ const Contact = () => {
     e.preventDefault();
     setStatus({ submitting: true, success: false, error: null });
 
+    const phoneDigits = formData.phoneNum.replace(/\D/g, '');
+    const isOnlyDigits = /^\d+$/.test(formData.phoneNum);
+    
+    if (!isOnlyDigits) {
+      setStatus({ submitting: false, success: false, error: 'Phone number must contain only digits.' });
+      return;
+    }
+    
+    if (phoneDigits.length < 7 || phoneDigits.length > 15) {
+      setStatus({ submitting: false, success: false, error: 'Phone number must be between 7 and 15 digits.' });
+      return;
+    }
+
+    const fullPhone = formData.countryCode + phoneDigits;
+
     try {
       const res = await fetch(apiUrl('/api/messages'), {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify(formData)
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          subject: formData.subject,
+          message: formData.message,
+          phone: fullPhone,
+          whatsappAvailable: formData.whatsappAvailable
+        })
       });
       const data = await res.json();
 
       if (data.success) {
         setStatus({ submitting: false, success: true, error: null });
-        setFormData({ name: '', email: '', subject: '', message: '' });
+        setFormData({
+          name: '',
+          email: '',
+          subject: '',
+          message: '',
+          countryCode: '+94',
+          phoneNum: '',
+          whatsappAvailable: false
+        });
       } else {
         setStatus({ submitting: false, success: false, error: data.message || 'Something went wrong.' });
       }
@@ -134,6 +167,68 @@ const Contact = () => {
                 className="form-input"
                 placeholder="e.g., jane@watson.com"
               />
+            </div>
+
+            <div className="form-group">
+              <label className="form-label" htmlFor="phoneNum">Contact Phone</label>
+              <div style={{ display: 'flex', gap: '8px' }}>
+                <select
+                  name="countryCode"
+                  id="countryCode"
+                  value={formData.countryCode}
+                  onChange={handleChange}
+                  className="form-input"
+                  style={{ width: '110px', height: '42px', padding: '0 8px', background: 'rgba(9, 13, 22, 0.6)', border: '1px solid var(--border-color)', borderRadius: '6px', color: 'var(--text-primary)' }}
+                >
+                  <option value="+94">+94 (LK)</option>
+                  <option value="+91">+91 (IN)</option>
+                  <option value="+44">+44 (GB)</option>
+                  <option value="+1">+1 (US/CA)</option>
+                  <option value="+61">+61 (AU)</option>
+                  <option value="+971">+971 (AE)</option>
+                  <option value="+65">+65 (SG)</option>
+                  <option value="+60">+60 (MY)</option>
+                </select>
+                <input 
+                  type="text" 
+                  name="phoneNum" 
+                  id="phoneNum" 
+                  required 
+                  value={formData.phoneNum} 
+                  onChange={handleChange} 
+                  className="form-input"
+                  style={{ flex: 1 }}
+                  placeholder="e.g., 764609326"
+                />
+              </div>
+            </div>
+
+            <div className="form-group">
+              <label className="form-label">Do you use WhatsApp on this number?</label>
+              <div style={{ display: 'flex', gap: '20px', marginTop: '8px' }}>
+                <label style={{ display: 'flex', alignItems: 'center', gap: '8px', cursor: 'pointer', fontSize: '0.9rem', color: 'var(--text-secondary)' }}>
+                  <input
+                    type="radio"
+                    name="whatsappAvailable"
+                    value="true"
+                    checked={formData.whatsappAvailable === true}
+                    onChange={() => setFormData({ ...formData, whatsappAvailable: true })}
+                    style={{ cursor: 'pointer', accentColor: 'var(--accent-secondary)' }}
+                  />
+                  Yes
+                </label>
+                <label style={{ display: 'flex', alignItems: 'center', gap: '8px', cursor: 'pointer', fontSize: '0.9rem', color: 'var(--text-secondary)' }}>
+                  <input
+                    type="radio"
+                    name="whatsappAvailable"
+                    value="false"
+                    checked={formData.whatsappAvailable === false}
+                    onChange={() => setFormData({ ...formData, whatsappAvailable: false })}
+                    style={{ cursor: 'pointer', accentColor: 'var(--accent-secondary)' }}
+                  />
+                  No
+                </label>
+              </div>
             </div>
 
             <div className="form-group">

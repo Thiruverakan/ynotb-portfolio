@@ -125,6 +125,8 @@ const messagesData = [
     email: 'emily@watsonretail.com',
     subject: 'Inquiry: Inventory System Integration',
     message: 'Hello YnotB Team, we are looking to upgrade our current legacy inventory tracker. We would love to discuss custom API integrations with Shopify and Stripe. Please let me know your availability for a discovery call this week.',
+    phone: '+447911123456',
+    whatsappAvailable: true,
     status: 'unread'
   },
   {
@@ -132,6 +134,8 @@ const messagesData = [
     email: 'david@cryptonova.org',
     subject: 'Collaboration: Smart Contract Frontend',
     message: 'We saw your Nova Analytics Dashboard project and were highly impressed by the chart interfaces. We are looking for a team to build a similar analytics interface for our decentralized finance project. Let us connect.',
+    phone: '+12025550143',
+    whatsappAvailable: false,
     status: 'read'
   }
 ];

@@ -6,7 +6,20 @@ const mockDbStore = require('../config/mockDbStore');
 // @access  Public
 const createMessage = async (req, res) => {
   try {
-    const { name, email, subject, message } = req.body;
+    const { name, email, subject, message, phone, whatsappAvailable } = req.body;
+
+    if (!phone) {
+      return res.status(400).json({ success: false, message: 'Phone number is required' });
+    }
+
+    const phoneRegex = /^\+\d{7,15}$/;
+    if (!phoneRegex.test(phone)) {
+      return res.status(400).json({ success: false, message: 'Phone number must match international format (e.g. +94764609326)' });
+    }
+
+    if (whatsappAvailable !== undefined && typeof whatsappAvailable !== 'boolean') {
+      return res.status(400).json({ success: false, message: 'whatsappAvailable must be a boolean' });
+    }
     
     if (global.useMockDb) {
       const newMessage = mockDbStore.create('messages', {
@@ -14,6 +27,8 @@ const createMessage = async (req, res) => {
         email,
         subject,
         message,
+        phone,
+        whatsappAvailable: whatsappAvailable || false,
         status: 'unread'
       });
       return res.status(201).json({
@@ -27,7 +42,9 @@ const createMessage = async (req, res) => {
       name,
       email,
       subject,
-      message
+      message,
+      phone,
+      whatsappAvailable: whatsappAvailable || false
     });
 
     res.status(201).json({
