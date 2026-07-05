@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { apiUrl } from '../config';
+
 import { ArrowRight, Code, Eye, ExternalLink, Github } from 'lucide-react';
 
 const Portfolio = () => {
@@ -8,7 +10,7 @@ const Portfolio = () => {
   useEffect(() => {
     const fetchProjects = async () => {
       try {
-        const res = await fetch('/api/projects');
+        const res = await fetch(apiUrl('/api/projects'));
         const data = await res.json();
         if (data.success) {
           setProjects(data.projects);

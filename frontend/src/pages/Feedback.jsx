@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Star, MessageSquare, Globe, User, Send, CheckCircle, AlertCircle } from 'lucide-react';
+import { apiUrl } from '../config';
+
 
 const Feedback = () => {
   const [feedbacks, setFeedbacks] = useState([]);
@@ -23,7 +25,7 @@ const Feedback = () => {
 
   const fetchFeedbacks = async () => {
     try {
-      const res = await fetch('/api/feedbacks');
+      const res = await fetch(apiUrl('/api/feedbacks'));
       const data = await res.json();
       if (data.success) {
         setFeedbacks(data.feedbacks);
@@ -73,7 +75,7 @@ const Feedback = () => {
     }
 
     try {
-      const res = await fetch('/api/feedbacks', {
+      const res = await fetch(apiUrl('/api/feedbacks'), {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'

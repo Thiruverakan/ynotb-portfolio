@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { apiUrl } from '../config';
+
 import { ArrowRight, Code, Shield, Smartphone, Server, Palette, Layers, Award, Briefcase, Clock, Activity, Users, Code2, Brain } from 'lucide-react';
 
 const Home = () => {
@@ -11,8 +13,8 @@ const Home = () => {
     const fetchData = async () => {
       try {
         const [projRes, servRes] = await Promise.all([
-          fetch('/api/projects'),
-          fetch('/api/services')
+          fetch(apiUrl('/api/projects')),
+          fetch(apiUrl('/api/services'))
         ]);
         
         const projData = await projRes.json();

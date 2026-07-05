@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { 
   Code2, 
@@ -9,11 +9,32 @@ import {
   GraduationCap, 
   ArrowRight,
   Sparkles,
-  Plus
+  Plus,
+  Smartphone
 } from 'lucide-react';
+import { apiUrl } from '../config';
 
 const Services = () => {
   const [openIndex, setOpenIndex] = useState(null);
+  const [services, setServices] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchServices = async () => {
+      try {
+        const res = await fetch(apiUrl('/api/services'));
+        const data = await res.json();
+        if (data.success) {
+          setServices(data.services);
+        }
+      } catch (error) {
+        console.error('Error fetching services:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchServices();
+  }, []);
 
   const toggleFaq = (index) => {
     setOpenIndex(openIndex === index ? null : index);
@@ -26,56 +47,26 @@ const Services = () => {
     }
   };
 
-  const serviceCards = [
-    {
-      icon: <Code2 size={28} />,
-      title: 'Software & Web Development',
-      description: 'Build modern websites, web applications, business systems, management platforms, e-commerce solutions, and custom software tailored to your requirements.',
-      theme: 'cyan',
-      accentColor: 'var(--accent-secondary)',
-      bgColor: 'rgba(6, 182, 212, 0.08)'
-    },
-    {
-      icon: <Brain size={28} />,
-      title: 'AI Solutions',
-      description: 'Develop intelligent applications using Artificial Intelligence, Machine Learning, automation, data analytics, chatbots, and predictive systems.',
-      theme: 'purple',
-      accentColor: 'var(--accent-primary)',
-      bgColor: 'rgba(124, 58, 237, 0.08)'
-    },
-    {
-      icon: <Server size={28} />,
-      title: 'Cloud Solutions',
-      description: 'Deploy, scale, and manage secure cloud infrastructure, APIs, databases, backups, and modern DevOps workflows.',
-      theme: 'cyan',
-      accentColor: 'var(--accent-secondary)',
-      bgColor: 'rgba(6, 182, 212, 0.08)'
-    },
-    {
-      icon: <Palette size={28} />,
-      title: 'UI/UX Design & Branding',
-      description: 'Design intuitive user experiences, modern interfaces, brand identities, graphics, dashboards, and interactive digital products.',
-      theme: 'purple',
-      accentColor: 'var(--accent-primary)',
-      bgColor: 'rgba(124, 58, 237, 0.08)'
-    },
-    {
-      icon: <Megaphone size={28} />,
-      title: 'Digital Marketing',
-      description: 'Grow your online presence through SEO, social media marketing, content strategies, branding, and performance-driven digital campaigns.',
-      theme: 'cyan',
-      accentColor: 'var(--accent-secondary)',
-      bgColor: 'rgba(6, 182, 212, 0.08)'
-    },
-    {
-      icon: <GraduationCap size={28} />,
-      title: 'University Projects & Research Solutions',
-      description: 'Support students with software engineering projects, AI research, final-year systems, web applications, mobile applications, and technical consulting.',
-      theme: 'purple',
-      accentColor: 'var(--accent-primary)',
-      bgColor: 'rgba(124, 58, 237, 0.08)'
+  const getServiceIcon = (iconName) => {
+    switch (iconName?.toLowerCase()) {
+      case 'code': return <Code2 size={28} />;
+      case 'mobile': return <Smartphone size={28} />;
+      case 'server': return <Server size={28} />;
+      case 'palette': return <Palette size={28} />;
+      case 'megaphone': return <Megaphone size={28} />;
+      case 'graduationcap': return <GraduationCap size={28} />;
+      default: return <Sparkles size={28} />;
     }
-  ];
+  };
+
+  const getServiceTheme = (index) => {
+    const isPurple = index % 2 === 1;
+    return {
+      theme: isPurple ? 'purple' : 'cyan',
+      accentColor: isPurple ? 'var(--accent-primary)' : 'var(--accent-secondary)',
+      bgColor: isPurple ? 'rgba(124, 58, 237, 0.08)' : 'rgba(6, 182, 212, 0.08)'
+    };
+  };
 
   const faqItems = [
     {
@@ -104,6 +95,7 @@ const Services = () => {
     }
   ];
 
+
   return (
     <div className="container section-padding animate-fade-in">
       {/* Header section */}
@@ -119,69 +111,82 @@ const Services = () => {
       </div>
 
       {/* Services Grid (Responsive: 3 columns desktop, 2 tablet, 1 mobile via grid-3-col) */}
-      <div className="grid-3-col" style={{ margin: '60px 0' }}>
-        {serviceCards.map((service, index) => (
-          <div 
-            key={index} 
-            className={`service-page-card ${service.theme === 'purple' ? 'purple-theme' : ''}`}
-          >
-            {/* Custom Icon Squircle */}
-            <div style={{
-              color: service.accentColor,
-              background: service.bgColor,
-              width: '56px',
-              height: '56px',
-              borderRadius: '12px',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              marginBottom: '28px',
-              flexShrink: 0
-            }}>
-              {service.icon}
-            </div>
-
-            {/* Content */}
-            <h2 style={{ 
-              fontSize: '1.35rem', 
-              marginBottom: '14px', 
-              fontFamily: 'var(--font-display)', 
-              fontWeight: 700 
-            }}>
-              {service.title}
-            </h2>
-            
-            <p style={{ 
-              color: 'var(--text-secondary)', 
-              fontSize: '0.92rem', 
-              lineHeight: '1.6',
-              marginBottom: '28px',
-              flex: 1 
-            }}>
-              {service.description}
-            </p>
-
-            {/* Learn More Interactive link */}
-            <div style={{ marginTop: 'auto', paddingTop: '10px' }}>
-              <Link 
-                to="/contact" 
-                style={{ 
-                  display: 'inline-flex', 
-                  alignItems: 'center', 
-                  gap: '8px', 
-                  color: service.accentColor, 
-                  fontWeight: 600, 
-                  fontSize: '0.9rem', 
-                  textDecoration: 'none' 
-                }}
+      {loading ? (
+        <div style={{ textAlign: 'center', padding: '40px 0', color: 'var(--text-secondary)' }}>
+          Loading services catalog...
+        </div>
+      ) : services.length > 0 ? (
+        <div className="grid-3-col" style={{ margin: '60px 0' }}>
+          {services.map((service, index) => {
+            const themeInfo = getServiceTheme(index);
+            return (
+              <div 
+                key={service._id || service.id} 
+                className={`service-page-card ${themeInfo.theme === 'purple' ? 'purple-theme' : ''}`}
               >
-                Learn More
-                <ArrowRight size={16} className="arrow-icon" />
-              </Link>
-            </div>
-          </div>
-        ))}
-      </div>
+                {/* Custom Icon Squircle */}
+                <div style={{
+                  color: themeInfo.accentColor,
+                  background: themeInfo.bgColor,
+                  width: '56px',
+                  height: '56px',
+                  borderRadius: '12px',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  marginBottom: '28px',
+                  flexShrink: 0
+                }}>
+                  {getServiceIcon(service.icon)}
+                </div>
+
+                {/* Content */}
+                <h2 style={{ 
+                  fontSize: '1.35rem', 
+                  marginBottom: '14px', 
+                  fontFamily: 'var(--font-display)', 
+                  fontWeight: 700 
+                }}>
+                  {service.name}
+                </h2>
+                
+                <p style={{ 
+                  color: 'var(--text-secondary)', 
+                  fontSize: '0.92rem', 
+                  lineHeight: '1.6',
+                  marginBottom: '28px',
+                  flex: 1 
+                }}>
+                  {service.description}
+                </p>
+
+                {/* Learn More Interactive link */}
+                <div style={{ marginTop: 'auto', paddingTop: '10px' }}>
+                  <Link 
+                    to="/contact" 
+                    style={{ 
+                      display: 'inline-flex', 
+                      alignItems: 'center', 
+                      gap: '8px', 
+                      color: themeInfo.accentColor, 
+                      fontWeight: 600, 
+                      fontSize: '0.9rem', 
+                      textDecoration: 'none' 
+                    }}
+                  >
+                    Learn More
+                    <ArrowRight size={16} className="arrow-icon" />
+                  </Link>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      ) : (
+        <div style={{ textAlign: 'center', padding: '40px 0', color: 'var(--text-muted)' }}>
+          No services listed in the catalog.
+        </div>
+      )}
 
       {/* FAQ Accordion Section */}
       <div className="faq-accordion-container">

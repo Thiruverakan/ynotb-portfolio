@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
+import { apiUrl } from '../config';
+
 import { ArrowLeft, ExternalLink, Github, Calendar, Briefcase, ChevronRight } from 'lucide-react';
 
 const ProjectDetails = () => {
@@ -11,7 +13,7 @@ const ProjectDetails = () => {
   useEffect(() => {
     const fetchProjectDetails = async () => {
       try {
-        const res = await fetch(`/api/projects/${id}`);
+        const res = await fetch(apiUrl(`/api/projects/${id}`));
         const data = await res.json();
         if (data.success) {
           setProject(data.project);

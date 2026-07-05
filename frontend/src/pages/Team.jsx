@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Github, Linkedin, X, GraduationCap, Briefcase, User } from 'lucide-react';
+import { apiUrl } from '../config';
+
 
 const Team = () => {
   const [team, setTeam] = useState([]);
@@ -9,9 +11,9 @@ const Team = () => {
   useEffect(() => {
     const fetchTeam = async () => {
       try {
-        const res = await fetch('https://ynotb-portfolio-backend.onrender.com/api/team', {
-  cache: 'no-store'
-});
+        const res = await fetch(apiUrl('/api/team'), {
+          cache: 'no-store'
+        });
         const data = await res.json();
         if (data.success) {
           setTeam(data.team);

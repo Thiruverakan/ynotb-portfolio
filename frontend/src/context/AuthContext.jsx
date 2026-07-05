@@ -1,6 +1,6 @@
 import React, { createContext, useState, useEffect, useContext } from 'react';
+import { API_BASE_URL } from '../config';
 
-const API_BASE_URL = 'https://ynotb-portfolio-backend.onrender.com';
 
 const AuthContext = createContext(null);
 

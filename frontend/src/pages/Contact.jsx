@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { Mail, MapPin, Clock, Phone, Send, CheckCircle, AlertCircle, Copy } from 'lucide-react';
+import { apiUrl } from '../config';
+
 
 const Contact = () => {
   const [copiedItem, setCopiedItem] = useState(null);
@@ -35,7 +37,7 @@ const Contact = () => {
     setStatus({ submitting: true, success: false, error: null });
 
     try {
-      const res = await fetch('/api/messages', {
+      const res = await fetch(apiUrl('/api/messages'), {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
