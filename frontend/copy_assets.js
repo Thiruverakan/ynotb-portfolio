@@ -21,4 +21,13 @@ if (fs.existsSync(stylesSrc)) {
     fs.copyFileSync(path.join(stylesSrc, file), path.join(stylesDest, file));
   }
 }
+
+// Copy robots.txt and sitemap.xml to dist
+if (fs.existsSync('robots.txt')) {
+  fs.copyFileSync('robots.txt', 'dist/robots.txt');
+}
+if (fs.existsSync('sitemap.xml')) {
+  fs.copyFileSync('sitemap.xml', 'dist/sitemap.xml');
+}
+
 console.log('Assets copied successfully to dist!');
